@@ -1,4 +1,4 @@
-import { Form } from "react-router-dom";
+import { Container, Heading } from "@chakra-ui/react";
 
 type Contact = {
   first: string;
@@ -11,16 +11,16 @@ type Contact = {
 
 export default function Contact() {
   const contact: Contact = {
-    first: "Your",
-    last: "Name",
+    first: "Tom",
+    last: "Cat",
     avatar: "https://placekitten.com/g/200/200",
-    twitter: "your_handle",
-    notes: "Some notes",
+    twitter: "@tomnjerry",
+    notes: "Eat Jerry",
     favorite: true,
   };
 
   return (
-    <div id="contact">
+    <Container display={'flex'} flexDirection={'column'} alignItems={'center'} border={'1px'} borderRadius={'8'} padding={4}>
       <div>
         <img
           key={contact.avatar}
@@ -29,7 +29,7 @@ export default function Contact() {
       </div>
 
       <div>
-        <h1>
+        <Heading>
           {contact.first || contact.last ? (
             <>
               {contact.first} {contact.last}
@@ -38,7 +38,7 @@ export default function Contact() {
             <i>No Name</i>
           )}{" "}
           <Favorite contact={contact} />
-        </h1>
+        </Heading>
 
         {contact.twitter && (
           <p>
@@ -52,36 +52,15 @@ export default function Contact() {
         )}
 
         {contact.notes && <p>{contact.notes}</p>}
-
-        <div>
-          <Form action="edit">
-            <button type="submit">Edit</button>
-          </Form>
-          <Form
-            method="post"
-            action="destroy"
-            onSubmit={(event) => {
-              if (
-                !confirm(
-                  "Please confirm you want to delete this record."
-                )
-              ) {
-                event.preventDefault();
-              }
-            }}
-          >
-            <button type="submit">Delete</button>
-          </Form>
-        </div>
       </div>
-    </div>
+    </Container>
   );
 }
 
 function Favorite(props: { contact: Contact }) {
   const favorite = props.contact.favorite;
   return (
-    <Form method="post">
+    <Container>
       <button
         name="favorite"
         value={favorite ? "false" : "true"}
@@ -93,6 +72,6 @@ function Favorite(props: { contact: Contact }) {
       >
         {favorite ? "★" : "☆"}
       </button>
-    </Form>
+    </Container>
   );
 }
