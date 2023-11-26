@@ -1,0 +1,194 @@
+{
+  "$schema": "https://aka.ms/codetour-schema",
+  "title": "App tour",
+  "steps": [
+    {
+      "file": "src/main.tsx",
+      "description": "Entry point for the routes",
+      "line": 11
+    },
+    {
+      "file": "src/router.tsx",
+      "description": "Following are the paths present on root level",
+      "line": 30
+    },
+    {
+      "file": "src/router.tsx",
+      "description": "This is the main app-page that redirects the user to the payment gateway or any other 3rd party app by opening a new tab.",
+      "line": 41,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 1
+        },
+        "end": {
+          "line": 1,
+          "character": 73
+        }
+      }
+    },
+    {
+      "file": "src/router.tsx",
+      "description": "This is the app-page on which the user is redirected to after making the payment/doing activity on the 3rd party app.\nThis page reads the items from the searchParams and sends a `postMessage` to our own app (wherever the `postMesssagelistener` is attached).",
+      "line": 45
+    },
+    {
+      "file": "src/components/Redirector/Redirector.tsx",
+      "description": "Cta that mounts the listener component (starts listening) to the postMessage event, and opens a new window and remembers that window's context (`windowOpener` fn).",
+      "line": 20
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "Closure of this `subscribedWindow` object is formed as this file will remain in the chunk and won't be garbage collected.",
+      "line": 20
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "opens the `URL` from the subscribedWindow object. (which now holds window instance named `windowReference` variable passed from parent)",
+      "line": 34
+    },
+    {
+      "file": "src/components/Redirector/Redirector.tsx",
+      "description": "This is the `postMessage listener component` that listens to your `postMessage` event",
+      "line": 23
+    },
+    {
+      "file": "src/components/ListenerApp/ListenerApp.tsx",
+      "description": "A state that shows the message received in `searchParams` from the 3rd party app and `postMessaged` back here.",
+      "line": 6
+    },
+    {
+      "file": "src/components/ListenerApp/ListenerApp.tsx",
+      "description": "postMessage status (taken as payment status here) is shown here, either payment `Successful` or `Failed`",
+      "line": 33
+    },
+    {
+      "file": "src/components/ListenerApp/ListenerApp.tsx",
+      "description": "attaching `messageListener` here, that listens to particular message.\nThis fn taken 2 params: \n1. `onSuccess` callback, fn called when there is a success message from paymentApp\n2. `onFailure` callback, fn called when there is a unsuccessful message from paymentApp",
+      "line": 13
+    },
+    {
+      "file": "src/components/ListenerApp/ListenerApp.tsx",
+      "description": "removing the attached event listeners here",
+      "line": 15
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "Attached the `postMessage` listener on the openerWindow",
+      "line": 78,
+      "selection": {
+        "start": {
+          "line": 1,
+          "character": 15
+        },
+        "end": {
+          "line": 1,
+          "character": 26
+        }
+      }
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "Attached a closeListener to the opened window",
+      "line": 48
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "selection": {
+        "start": {
+          "line": 5,
+          "character": 5
+        },
+        "end": {
+          "line": 12,
+          "character": 8
+        }
+      },
+      "description": "returns an object with promise, that we can use in case the window closes."
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "selection": {
+        "start": {
+          "line": 80,
+          "character": 3
+        },
+        "end": {
+          "line": 82,
+          "character": 5
+        }
+      },
+      "description": ""
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": ""
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "This is the usage for onClose of the window.",
+      "line": 80
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "`cancel` will just clear the intervalId, i.e. no more listening to the window's closure.",
+      "line": 13
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "If the `data.id` doesn't matches the particular decided key, we return, since it is not our `postMessage`.",
+      "line": 52
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "closing and removing event listener in case of error.",
+      "line": 58
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "Based on `status` key here that we have received from the `postMessage event` from `PostPaymentRedirect` page, we call the apt callback,\nand close the new redirected back window `PostPaymentRedirect`\n(which would now have been redirected to our app url only, at this moment we ideally should have two of our app windows open:\n1. window one: `Redirector` compoentn with `Listener` component also on it\n2. window two: `PostPaymentRedirect` component, on which the user is redirected to from 3rd party app, which now extract searchParams and sends postMessage and then closes here.\n)",
+      "line": 65
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "Returns cleanup fns.",
+      "line": 85
+    },
+    {
+      "file": "src/components/PostPaymentRedirect/PostPaymentRedirect.tsx",
+      "description": "User lands on this page with few `searchParams` with desired key (`status` here), that are extracted here.",
+      "line": 6
+    },
+    {
+      "file": "src/components/PostPaymentRedirect/PostPaymentRedirect.tsx",
+      "description": "picking the current window's opener, sicne that is the parent window that opened the tab previously from `Redirector` app.",
+      "line": 16
+    },
+    {
+      "file": "src/components/PostPaymentRedirect/PostPaymentRedirect.tsx",
+      "description": "Sending a `postMessage` to our app (listening on `Redirector`>`ListenerApp`)",
+      "line": 22
+    },
+    {
+      "file": "src/components/PostPaymentRedirect/PostPaymentRedirect.tsx",
+      "description": "Added a timer to close this extra page, not really required to be added in actual code/use-case.",
+      "line": 23
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "message is received, and this fn `onMessageHandler` is called",
+      "line": 78
+    },
+    {
+      "file": "src/utils/windowOpener.ts",
+      "description": "this case is fullfiled in case of success message and the callback fn gets called",
+      "line": 65
+    },
+    {
+      "file": "src/components/ListenerApp/ListenerApp.tsx",
+      "description": "`paymentStatus` is then populated here successfully! 🎉",
+      "line": 33
+    }
+  ],
+  "ref": "master"
+}
