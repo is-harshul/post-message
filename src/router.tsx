@@ -1,26 +1,21 @@
 import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import { Box } from "@chakra-ui/react";
 
-// Components
 import App from "./App";
 import ErrorPage from "./components/Error/ErrorPage";
 import Contact from "./components/Contact/Contact";
 import Header from "./components/Header/Header";
 import Redirector from "./components/Redirector/Redirector";
 import PostPaymentRedirect from "./components/PostPaymentRedirect/PostPaymentRedirect";
-// import ListenerApp from "./components/ListenerApp/ListenerApp";
 
 const NavigationWithAppSlot = () => {
   return (
-    <>
+    <Box>
       <Header />
-
-      {/* UI Slot for the app 👇 */}
       <Outlet />
-
-      {/* <ListenerApp /> */}
-    </>
-  )
-}
+    </Box>
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -48,9 +43,8 @@ const router = createBrowserRouter([
   },
 ]);
 
-
 const Router = () => {
-  return <RouterProvider router={router} />
+  return <RouterProvider router={router} />;
 };
 
 export default Router;

@@ -1,21 +1,42 @@
-import { List, ListItem } from "@chakra-ui/react";
-import { Link } from "react-router-dom";
+import { Box, Flex, Text } from "@chakra-ui/react";
+import { Link, useLocation } from "react-router-dom";
+
+const navItems = [
+  { to: "/", label: "Home" },
+  { to: "/contacts", label: "Contacts" },
+  { to: "/redirector", label: "Payment Flow" },
+  { to: "/redirectApp", label: "Redirect Handler" },
+];
 
 export default function Header() {
+  const location = useLocation();
+
   return (
-    <List display={'flex'} justifyContent={'space-around'} border={'1px'} padding={6} background={'slate'} borderRadius={4} marginBottom={20}>
-      <ListItem>
-        <Link to="/">Home</Link>
-      </ListItem>
-      <ListItem>
-        <Link to="/contacts">Contacts</Link>
-      </ListItem>
-      <ListItem>
-        <Link to="/redirector">Redirect to Payment</Link>
-      </ListItem>
-      <ListItem>
-        <Link to="/redirectApp">Handle redirection back</Link>
-      </ListItem>
-    </List>
+    <Box
+      as="nav"
+      borderBottom="1px solid"
+      borderColor="whiteAlpha.100"
+      pb={4}
+      mb={10}
+    >
+      <Text fontSize="xs" color="whiteAlpha.400" mb={3} letterSpacing="0.1em" textTransform="uppercase">
+        postMessage Demo
+      </Text>
+      <Flex gap={6}>
+        {navItems.map(({ to, label }) => (
+          <Link key={to} to={to}>
+            <Text
+              fontSize="sm"
+              color={location.pathname === to ? "white" : "whiteAlpha.500"}
+              fontWeight={location.pathname === to ? 600 : 400}
+              _hover={{ color: "white" }}
+              transition="color 0.2s"
+            >
+              {label}
+            </Text>
+          </Link>
+        ))}
+      </Flex>
+    </Box>
   );
 }
